@@ -110,28 +110,28 @@ class ResNet(nn.Module):
         self.avgpool4 = nn.AvgPool2d([x*1 for x in global_pooling_size])
         self.layer1_fc = nn.Sequential(
             nn.Linear(64 * block.expansion, fc_layer1),
-            nn.BatchNorm2d(fc_layer1),
+            nn.BatchNorm1d(fc_layer1),
             nn.ReLU(inplace=True),
             nn.Dropout(p=drop_rate),
             nn.Linear(fc_layer1, fc_layer2),
         )
         self.layer2_fc = nn.Sequential(
             nn.Linear(128 * block.expansion, fc_layer1),
-            nn.BatchNorm2d(fc_layer1),
+            nn.BatchNorm1d(fc_layer1),
             nn.ReLU(inplace=True),
             nn.Dropout(p=drop_rate),
             nn.Linear(fc_layer1, fc_layer2),
         )
         self.layer3_fc = nn.Sequential(
             nn.Linear(256 * block.expansion, fc_layer1),
-            nn.BatchNorm2d(fc_layer1),
+            nn.BatchNorm1d(fc_layer1),
             nn.ReLU(inplace=True),
             nn.Dropout(p=drop_rate),
             nn.Linear(fc_layer1, fc_layer2),
         )
         self.layer4_fc = nn.Sequential(
             nn.Linear(512 * block.expansion, fc_layer1),
-            nn.BatchNorm2d(fc_layer1),
+            nn.BatchNorm1d(fc_layer1),
             nn.ReLU(inplace=True),
             nn.Dropout(p=drop_rate),
             nn.Linear(fc_layer1, fc_layer2),
@@ -144,6 +144,9 @@ class ResNet(nn.Module):
                 n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
                 m.weight.data.normal_(0, math.sqrt(2. / n))
             elif isinstance(m, nn.BatchNorm2d):
+                m.weight.data.fill_(1)
+                m.bias.data.zero_()
+            elif isinstance(m, nn.BatchNorm1d):
                 m.weight.data.fill_(1)
                 m.bias.data.zero_()
 

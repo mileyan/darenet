@@ -86,13 +86,13 @@ def densenet161(pretrained=False, **kwargs):
 class _DenseLayer(nn.Sequential):
     def __init__(self, num_input_features, growth_rate, bn_size, drop_rate):
         super(_DenseLayer, self).__init__()
-        self.add_module('norm.1', nn.BatchNorm2d(num_input_features)),
-        self.add_module('relu.1', nn.ReLU(inplace=True)),
-        self.add_module('conv.1', nn.Conv2d(num_input_features, bn_size *
+        self.add_module('norm1', nn.BatchNorm2d(num_input_features)),
+        self.add_module('relu1', nn.ReLU(inplace=True)),
+        self.add_module('conv1', nn.Conv2d(num_input_features, bn_size *
                         growth_rate, kernel_size=1, stride=1, bias=False)),
-        self.add_module('norm.2', nn.BatchNorm2d(bn_size * growth_rate)),
-        self.add_module('relu.2', nn.ReLU(inplace=True)),
-        self.add_module('conv.2', nn.Conv2d(bn_size * growth_rate, growth_rate,
+        self.add_module('norm2', nn.BatchNorm2d(bn_size * growth_rate)),
+        self.add_module('relu2', nn.ReLU(inplace=True)),
+        self.add_module('conv2', nn.Conv2d(bn_size * growth_rate, growth_rate,
                         kernel_size=3, stride=1, padding=1, bias=False)),
         self.drop_rate = drop_rate
 
@@ -166,28 +166,28 @@ class DenseNet(nn.Module):
 
         self.layer_fc0 = nn.Sequential(
             nn.Linear(num_features_list[0], fc_layer1),
-            nn.BatchNorm2d(fc_layer1),
+            nn.BatchNorm1d(fc_layer1),
             nn.ReLU(inplace=True),
             nn.Dropout(p=drop_rate),
             nn.Linear(fc_layer1, fc_layer2),
         )
         self.layer_fc1 = nn.Sequential(
             nn.Linear(num_features_list[1], fc_layer1),
-            nn.BatchNorm2d(fc_layer1),
+            nn.BatchNorm1d(fc_layer1),
             nn.ReLU(inplace=True),
             nn.Dropout(p=drop_rate),
             nn.Linear(fc_layer1, fc_layer2),
         )
         self.layer_fc2 = nn.Sequential(
             nn.Linear(num_features_list[2], fc_layer1),
-            nn.BatchNorm2d(fc_layer1),
+            nn.BatchNorm1d(fc_layer1),
             nn.ReLU(inplace=True),
             nn.Dropout(p=drop_rate),
             nn.Linear(fc_layer1, fc_layer2),
         )
         self.layer_fc3 = nn.Sequential(
             nn.Linear(num_features_list[3], fc_layer1),
-            nn.BatchNorm2d(fc_layer1),
+            nn.BatchNorm1d(fc_layer1),
             nn.ReLU(inplace=True),
             nn.Dropout(p=drop_rate),
             nn.Linear(fc_layer1, fc_layer2),

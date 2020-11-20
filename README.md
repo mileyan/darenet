@@ -18,9 +18,9 @@ This repository contains the code for paper
 ## Usage
 
 ### Dependencies
-- [Python3.6](https://www.python.org/downloads/)
-- [PyTorch(0.2.0)](http://pytorch.org)
-- [torchvision(0.2.0)](http://pytorch.org)
+- [Python3](https://www.python.org/downloads/)
+- [PyTorch](http://pytorch.org)
+- [torchvision](http://pytorch.org)
 - [Market1501 dataset](http://www.liangzheng.org/Project/project_reid.html)
 - [MARS dataset](http://www.liangzheng.com.cn/Project/project_mars.html)
 - [CUHK03 dataset](https://github.com/zhunzhong07/person-re-ranking/tree/master/CUHK03-NP)
@@ -76,6 +76,12 @@ We provide several pretrained models listed below:
 - [CUHK Labeled Dense201](https://drive.google.com/file/d/1IsVEYc2AV2cGovt015cQ3WcL48U-tFik/view?usp=sharing)
 - [Duke Res50](https://drive.google.com/file/d/1B1BR9p6K-wW1oOkmDQZPfiyj2l4zcdc9/view?usp=sharing)
 - [Duke Dense201](https://drive.google.com/file/d/1BwfjlMk3K7sgBPcBs6gzCciBC6X8Q9hL/view?usp=sharing)
+
+
+The downloading of pretrained models has been automated with
+```bash
+python download_checkpoints.py --dir checkpoints
+```
 
 
 ## License
