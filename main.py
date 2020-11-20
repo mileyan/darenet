@@ -18,11 +18,13 @@ import Datasets
 import extract_features
 import my_logger
 from models import dare_models
+from utils import update_state_dict
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--data', metavar='DIR',
                     help='path to dataset')
-parser.add_argument('--arch', '-a', metavar='ARCH', default='dare_R',
+parser.add_argument('--arch', '-a', metavar='ARCH', default='dare_R', choices=['dare_R', 'dare_D'],
                     help='model architecture: (default: dare_R)')
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers (default: 4)')
@@ -106,7 +108,7 @@ def main():
                 args.start_iteration = 0
 
             best_loss = checkpoint['best_loss']
-            model.load_state_dict(checkpoint['state_dict'])
+            model.load_state_dict(update_state_dict(checkpoint['state_dict']))
             optimizer.load_state_dict(checkpoint['optimizer'])
             log_handler.info("=> loaded checkpoint '{}' "
                              .format(args.resume))
